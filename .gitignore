@@ -1,0 +1,13 @@
+# Obsidian plugin data (contains tokens, local state)
+.obsidian/plugins/*/data.json
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Obsidian local cache
+.obsidian/cache
+.trash/
