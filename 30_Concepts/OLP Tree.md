@@ -33,12 +33,12 @@ Controller
 
 | Level | Object | Purpose |
 |-------|--------|---------|
-| Controller | [[10_API_Reference/Download/DULPythonController\|DULPythonController]] | Robot identity, output path, profiles |
-| Program | [[10_API_Reference/Download/DULPythonProgram\|DULPythonProgram]] | Named program, may contain sub-programs |
+| Controller | [[10_API_Reference/Download/DULPythonController|DULPythonController]] | Robot identity, output path, profiles |
+| Program | [[10_API_Reference/Download/DULPythonProgram|DULPythonProgram]] | Named program, may contain sub-programs |
 | Operation | `DULPythonOperation` | Logical grouping of motions (one weld seam, one path) |
-| Motion | [[10_API_Reference/Download/DULPythonMotion\|DULPythonMotion]] | Single teach point with position + speed + accuracy |
-| Position | [[10_API_Reference/Download/DULPythonPosition\|DULPythonPosition]] | Cartesian coordinates or joint values |
-| Event | [[10_API_Reference/Download/DULPythonEvent\|DULPythonEvent]] | Technology command (weld on, signal, speed change) |
+| Motion | [[10_API_Reference/Download/DULPythonMotion|DULPythonMotion]] | Single teach point with position + speed + accuracy |
+| Position | [[10_API_Reference/Download/DULPythonPosition|DULPythonPosition]] | Cartesian coordinates or joint values |
+| Event | [[10_API_Reference/Download/DULPythonEvent|DULPythonEvent]] | Technology command (weld on, signal, speed change) |
 
 ## How to Inspect the Tree
 
@@ -59,4 +59,4 @@ The same tree is accessible via two APIs:
 
 - [[Event Model]] — how events attach to motions
 - [[Unit System]] — coordinate units in the tree
-- [[20_Patterns/Downloader/Callback Lifecycle Pattern\|Callback Lifecycle Pattern]] — traversal order
+- [[20_Patterns/Downloader/Callback Lifecycle Pattern|Callback Lifecycle Pattern]] — traversal order

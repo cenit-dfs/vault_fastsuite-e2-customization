@@ -75,9 +75,37 @@ log a warning instead of outputting an invalid frame number.
 
 **Fix:** Always dispatch on `event.GetEventType()` enum, never on `GetName()`.
 
+## 9. BoolAttribute Silent Failure
+
+**Problem:** `attr.GetValue() == 'True'` is always `False` because `GetValue()`
+returns Python `bool`, not string. No error — just wrong output.
+
+**Fix:** Use `str(attr.GetValue()) == 'True'` for all boolean attribute
+comparisons. See [[BoolAttribute Trap]] for full details.
+
+## 10. Inline Motion Settings
+
+**Problem:** Emitting SPEED/ACCURACY within event handlers creates wrong output
+order and makes suppression difficult.
+
+**Fix:** Buffer settings as pending values, flush in fixed order before each
+motion. See [[Buffered Motion Pattern]].
+
+## 11. Missing Read-Ahead for eventsAfter
+
+**Problem:** Technology events (ArcOn, ArcOff) attached via `eventsAfter` affect
+how the motion should be output, but you've already emitted it.
+
+**Fix:** Scan `motion.GetEventsAfter()` before outputting the motion to detect
+LWS/LWE transitions. See [[Read-Ahead Pattern]].
+
 ## See Also
 
 - [[Event Dispatch Pattern]]
 - [[Position Output Pattern]]
 - [[File Output Pattern]]
-- [[60_Troubleshooting/.gitkeep|Troubleshooting]]
+- [[BoolAttribute Trap]]
+- [[Buffered Motion Pattern]]
+- [[Read-Ahead Pattern]]
+- [[Weld State Machine Pattern]]
+- [[60_Troubleshooting/Troubleshooting Index|Troubleshooting]]

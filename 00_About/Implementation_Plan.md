@@ -3,7 +3,13 @@
 
 ## Implementation Plan — MCP-Served Knowledge for Agentic Workflows
 
-> **Status:** DRAFT — for team review before implementation.
+> **Status (2026-06-02):** Phase 1 seed complete. Patterns folder expanded.
+> **Key finding from production session:** Agent uses `typings/` (95%) > vault (5%)
+> for downloaders. Vault's highest value = Patterns + Technology APIs + Lifecycles.
+> Per-class API signature docs are redundant with stubs — deprioritized.
+>
+> **Revised priority:** Patterns > Technology APIs > Lifecycles > Docstrings > API class docs.
+>
 > **Vault name:** `vault_fastsuite-e2-customization`
 > **Repository:** public on GitHub.com (CENIT DFS org)
 > **Audience:** CENIT internal, customers, partners — anyone using VS Code agent tooling with FASTSUITE E2.
@@ -397,6 +403,31 @@ linked pattern notes. Include wikilinks to related API notes.
 ---
 
 # 10. Knowledge Migration Plan
+
+> **Revised (2026-06-02):** Based on production session results, §10.1 API Reference
+> Migration is deprioritized for Download/Upload/OlpCore classes (stubs cover them).
+> Technology APIs remain high priority (no stubs exist). Patterns (§10.2) are the
+> highest-value vault content. Docstrings (Phase 3) deferred until scenarios are mature.
+
+## Lessons Learned (2026-06-02 Kawasaki Production Session)
+
+| Finding | Implication |
+|---------|-------------|
+| Agent used `typings/` for 95% of API needs | Per-class vault API docs are redundant for download/upload |
+| Patterns (`20_Patterns/Downloader/`) were critical when discovered | Patterns are highest-value vault content |
+| Technology has no stubs at all | Technology APIs are the vault's unique contribution |
+| Golden files + reference dumps = ground truth | More scenarios > more docs |
+| BoolAttribute trap was a silent bug | Gotcha notes prevent repeat mistakes across teams |
+| MCP vault was barely queried | Vault value is for NEW domains (tech) and patterns, not repeating stubs |
+
+### Revised Priority Order
+
+1. **Patterns** (`20_Patterns/`) — behavioral knowledge not expressible in types ✅ Downloader done
+2. **Technology APIs** (`10_API_Reference/Technology/`) — only source, no stubs
+3. **Lifecycle docs** (callback order, timing, state) — keep and expand
+4. **Troubleshooting/Gotchas** (`60_Troubleshooting/`) — prevent silent bugs
+5. **Docstrings** (`40_Docstrings/`) — deferred until scenario coverage is broader
+6. ~~Per-class API method docs~~ — **deprioritized**, stubs are sufficient
 
 ## Phase 1 — Seed from fastsuite-copilot-starter (Week 1–2)
 

@@ -32,7 +32,7 @@ The `IOlpTechnology` interface defines callbacks invoked at the technology level
 
 ## PostTechInitAttributes
 
-Creates technology attributes using the [[OlpCore Attribute System|attribute creator API]].
+Creates technology attributes using the [[OlpCore Attributes|attribute creator API]].
 
 ```python
 def PostTechInitAttributes(Operator):
