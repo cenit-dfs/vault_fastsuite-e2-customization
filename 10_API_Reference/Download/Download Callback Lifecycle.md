@@ -102,7 +102,56 @@ Called after event processing.
 
 **Parameter:** `event` — [[DULPythonEvent]]
 
+## Starter Framework Lifecycle
+
+Downloader implementations based on `downloadStarter.py` use a more detailed
+callback layer around program traversal:
+
+```text
+HandleProgram(program)
+├─ OutputHeader(operator, controller)
+├─ LoopProgram(program)
+│  ├─ ProgramStart(operator, program)
+│  ├─ operation groups → operations → motions and events
+│  ├─ subprogram reference
+│  │  ├─ SubprogramStart(operator, subprogram)
+│  │  ├─ [optional inline LoopProgram(calledProgram)]
+│  │  └─ SubProgramEnd(operator, subprogram)
+│  └─ ProgramEnd(operator, program)
+├─ [optional appended LoopProgram for each called program]
+├─ CreateOutputFile(operator)
+├─ WriteOutputFile(operator)
+├─ CloseOutputFile(operator)
+└─ [separate-file mode: HandleProgram(each called program)]
+```
+
+### SubprogramStart
+
+Called when parent-program traversal encounters a [[DULPythonSubprogram]]
+reference. Typically used to emit a `CALL` statement.
+
+### SubProgramEnd
+
+Called after processing a subprogram reference. The capital `P` in
+`SubProgramEnd` is part of the framework method name.
+
+These callbacks process references in the parent program. When a called program
+is traversed, it receives its own `ProgramStart` through `ProgramEnd` lifecycle.
+
+## Subprogram Strategy Methods
+
+These overridable methods are queried by the starter framework:
+
+| Method | Base default | Effect |
+|--------|--------------|--------|
+| `OutputSubprogramInSeparateFiles()` | `True` | Create a separate output file for each called program |
+| `HandleSubprogramInLoop()` | `False` | Inline called-program traversal at the reference when separate files are disabled |
+
 ## See Also
 
 - [[DULPythonDownloadOperator]] — main operator available in all callbacks
+- [[DULPythonProgram]] — program traversal methods
+- [[DULPythonSubprogram]] — subprogram reference API
 - [[20_Patterns/Downloader/Callback Lifecycle Pattern|Callback Lifecycle Pattern]]
+- [[Subprogram Traversal Semantics]] — detailed behavior matrix
+- [[Per-Program State Reset]] — state handling across separate files
